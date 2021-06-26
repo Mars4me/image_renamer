@@ -1,0 +1,8 @@
+node_modules/
+.log
+/dist
+.env
+
+.vscode/
+.idea/
+*.sw*

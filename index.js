@@ -1,22 +1,23 @@
 const fs = require("fs");
 const sharp = require("sharp");
 
+// init func
+function renameImages(inputDir, outputDir, newImageName) {
+  fs.existsSync(outputDir) || fs.mkdirSync(outputDir);
 
-const pathToImages = "./images";
-const pathToOutputImages = "./convertedImages/";
-const newNameForImage = "new-name";
+  let images = fs.readdirSync(inputDir);
 
-const images = fs.readdirSync(pathToImages);
-
-fs.writeFile("images.json", JSON.stringify(images), "utf8", (err) => {
-  console.log(err);
-});
-
-for (let i = 0; i < images.length; i++) {
-  sharp(pathToImages + "/" + images[i]).toFile(
-    pathToOutputImages + newNameForImage + "_" + (i + 1) + ".jpg",
-    (err, info) => {
-      console.log(err);
-    }
-  );
+  images.forEach((el, index) => {
+    sharp(inputDir + "/" + el).toFile(
+      outputDir + '/' + newImageName + "_" + (index + 1) + ".jpg",
+      (err, info) => {
+        if(err) {
+          console.log(err);
+        }
+      }
+    );
+  })
 }
+
+// use
+renameImages('./images', './convertedImages', 'test-name')

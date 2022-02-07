@@ -1,22 +1,26 @@
 const fs = require("fs");
+const path = require("path");
 const sharp = require("sharp");
 
-
-const pathToImages = "./images";
-const pathToOutputImages = "./convertedImages/";
+const dirImagesForConvert = path.join(__dirname, "images");
+const dirWithConvertedImages = path.join(__dirname, "convertedImages");
 const newNameForImage = "new-name";
+const imageFormat = "jpg";
 
-const images = fs.readdirSync(pathToImages);
+const images = fs.readdirSync(dirImagesForConvert);
 
 fs.writeFile("images.json", JSON.stringify(images), "utf8", (err) => {
-  console.log(err);
+  if (err) console.log(err);
 });
 
 for (let i = 0; i < images.length; i++) {
-  sharp(pathToImages + "/" + images[i]).toFile(
-    pathToOutputImages + newNameForImage + "_" + (i + 1) + ".jpg",
+  sharp(path.join(dirImagesForConvert, images[i])).toFile(
+    path.join(
+      dirWithConvertedImages,
+      newNameForImage + "_" + (i + 1) + "." + imageFormat
+    ),
     (err, info) => {
-      console.log(err);
+      if (err) console.log(err);
     }
   );
 }

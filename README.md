@@ -16,5 +16,5 @@ Project is created with:
 To run this project, install it locally using npm:
 
 ```
-$ git clone https://github.com/Mars4me/imageRenamer.git <i>or SSH</i>
+$ git clone https://github.com/Mars4me/imageRenamer.git or via SSH
 $ node index
